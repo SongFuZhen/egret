@@ -45,10 +45,10 @@ class Main extends egret.DisplayObjectContainer {
 
     }
 
-    private timer:egret.Timer;
-    private date:Date;
+    private timer: egret.Timer;
+
     private async runGame() {
-        await this.loadResource()
+        await this.loadResource();
 
         this.spr = new egret.Sprite();
         this.spr.width = 480;
@@ -65,19 +65,19 @@ class Main extends egret.DisplayObjectContainer {
         this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.timerComFunc, this);
     }
 
-    private timerFunc ():void {
-        if(this.n <= 3){
+    private timerFunc(): void {
+        if (this.n <= 3) {
             this.num.text = '?';
-        }else{
+        } else {
             this.spr.removeChildren();
             this.drawText();
         }
 
-        this.n --;
+        this.n--;
     }
 
-    private timerComFunc():void {
-        if(this.n <= -2){
+    private timerComFunc(): void {
+        if (this.n <= -2) {
             this.drawContent();
             this.con.text = "别迷糊了，赶紧醒醒;"
             this.spr.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchSRP, this, true);
@@ -112,13 +112,13 @@ class Main extends egret.DisplayObjectContainer {
     }
 
     private img: egret.Bitmap;
-    private startTime:number;
-    private stopTime:number;
+    private startTime: number;
+    private stopTime: number;
     private finalTime: number;
 
     private onButtonComp(): void {
         this.img = this.createBitmapByName("btn");
-        var rect: egret.Rectangle = new egret.Rectangle(10, 10, 15, 15);
+        const rect: egret.Rectangle = new egret.Rectangle(10, 10, 15, 15);
 
         this.img.scale9Grid = rect;
         this.img.y = 200;
@@ -134,8 +134,8 @@ class Main extends egret.DisplayObjectContainer {
         this.img.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouch, this, true);
     }
 
-    private onTouch(evt:egret.Event) {
-        this.startTime =  new Date().getTime();
+    private onTouch(evt: egret.Event) {
+        this.startTime = new Date().getTime();
         this.img.alpha = 0;
         this.timer.start();
         this.drawText();
@@ -156,16 +156,16 @@ class Main extends egret.DisplayObjectContainer {
         }
     }
 
-    private onTouchSRP(evt:egret.Event) {
+    private onTouchSRP(evt: egret.Event) {
         this.spr.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchSRP, this, true);
         this.timer.stop();
         this.stopTime = new Date().getTime();
         this.finalTime = this.startTime - this.stopTime;
-        
+
         this.num.text = (this.finalTime / 1000 + 6).toFixed(3);
         this.drawContent();
 
-        switch(Math.floor(Math.abs(this.finalTime / 1000 + 6))){
+        switch (Math.floor(Math.abs(this.finalTime / 1000 + 6))) {
             case 0:
                 this.con.text = "帅气的专注";
                 break;
@@ -175,7 +175,7 @@ class Main extends egret.DisplayObjectContainer {
             case 2:
                 this.con.text = "别摸糊了，赶紧醒醒";
                 break;
-            default: 
+            default:
                 break;
         }
 
