@@ -45,8 +45,6 @@ class Main extends egret.DisplayObjectContainer {
 
     }
 
-    private timer: egret.Timer;
-
     private async runGame() {
         await this.loadResource();
 
@@ -55,92 +53,60 @@ class Main extends egret.DisplayObjectContainer {
         this.spr.height = 800;
         this.addChild(this.spr);
 
-        this.drawText();
-        this.drawContent();
-        this.onButtonComp();
+        this.onTimerShow();
+        this.onShowAnim();
 
-        this.timer = new egret.Timer(1000, 8);
-
-        this.timer.addEventListener(egret.TimerEvent.TIMER, this.timerFunc, this);
-        this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.timerComFunc, this);
+        this.onVirtualFactoryShow();
     }
 
-    private timerFunc(): void {
-        if (this.n <= 3) {
-            this.num.text = '?';
-        } else {
-            this.spr.removeChildren();
-            this.drawText();
-        }
-
-        this.n--;
-    }
-
-    private timerComFunc(): void {
-        if (this.n <= -2) {
-            this.drawContent();
-            this.con.text = "别迷糊了，赶紧醒醒;"
-            this.spr.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchSRP, this, true);
-
-            this.img.alpha = 1;
-        }
-    }
-
-    private n: number = 6;
-    private num: egret.TextField;
-    private con: egret.TextField;
-
-    private drawText() {
-        this.num = new egret.TextField();
-        this.num.text = this.n.toString();
-        this.num.size = 100;
-        this.num.width = 480;
-        this.num.textColor = 0x00ff00;
-        this.num.textAlign = egret.HorizontalAlign.CENTER;
-
-        this.spr.addChild(this.num);
-    }
-
-    private drawContent(): void {
-        this.con = new egret.TextField();
-        this.con.text = "默默倒数6秒，迅速点击文字";
-        this.con.width = 480;
-        this.con.textColor = 0x00ff00;
-        this.con.textAlign = egret.HorizontalAlign.CENTER;
-        this.con.y = 120;
-        this.spr.addChild(this.con);
-    }
-
-    private img: egret.Bitmap;
-    private startTime: number;
-    private stopTime: number;
-    private finalTime: number;
-
-    private onButtonComp(): void {
-        this.img = this.createBitmapByName("btn");
+    /**
+     * Timer Game Show
+     */
+    private onTimerShow(): void {
+        const timerImg = Main.createBitmapByName("zzd_png");
         const rect: egret.Rectangle = new egret.Rectangle(10, 10, 15, 15);
 
-        this.img.scale9Grid = rect;
-        this.img.y = 200;
-        this.img.x = 120;
-
-        // this.img.width *= 5;
-        // this.img.height = 70;
-
-        this.spr.addChild(this.img);
+        timerImg.scale9Grid = rect;
+        timerImg.y = 200;
+        timerImg.x = 120;
+        this.spr.addChild(timerImg);
 
         this.spr.touchEnabled = true;
-        this.img.touchEnabled = true;
-        this.img.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouch, this, true);
+        timerImg.touchEnabled = true;
+        timerImg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTimerTouch, this, true);
     }
 
-    private onTouch(evt: egret.Event) {
-        this.startTime = new Date().getTime();
-        this.img.alpha = 0;
-        this.timer.start();
-        this.drawText();
+    private onTimerTouch() {
+        this.spr.removeChildren();
+        const timerUI = new Timer();
+        this.spr.addChild(timerUI);
+    }
+
+    /**
+     * Anim Show
+     */
+    private onShowAnim(): void {
+        const animImg = Main.createBitmapByName("btn");
+
+        const rect: egret.Rectangle = new egret.Rectangle(10, 10, 15, 15);
+
+        animImg.scale9Grid = rect;
+
+        animImg.y = 300;
+        animImg.x = 120;
+
+        this.spr.addChild(animImg);
+
         this.spr.touchEnabled = true;
-        this.spr.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchSRP, this, true);
+        animImg.touchEnabled = true;
+        animImg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAnimTouch, this, true);
+
+    }
+
+    private onAnimTouch() {
+        this.spr.removeChildren();
+        const animUI = new Anim();
+        this.spr.addChild(animUI);
     }
 
     private async loadResource() {
@@ -149,6 +115,8 @@ class Main extends egret.DisplayObjectContainer {
             this.stage.addChild(loadingView);
             await RES.loadConfig("resource/default.res.json", "resource/");
             await RES.loadGroup("button", 0, loadingView);
+            await RES.loadGroup("preload", 1, loadingView);
+            await RES.loadGroup("factory", 2, loadingView);
             this.stage.removeChild(loadingView);
         }
         catch (e) {
@@ -156,42 +124,42 @@ class Main extends egret.DisplayObjectContainer {
         }
     }
 
-    private onTouchSRP(evt: egret.Event) {
-        this.spr.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchSRP, this, true);
-        this.timer.stop();
-        this.stopTime = new Date().getTime();
-        this.finalTime = this.startTime - this.stopTime;
+    /**
+     * 虚拟工厂展示图
+     */
+    private onVirtualFactoryShow() {
+        const virtualFactoryImg = Main.createBitmapByName("xngc_png");
 
-        this.num.text = (this.finalTime / 1000 + 6).toFixed(3);
-        this.drawContent();
+        const rect: egret.Rectangle = new egret.Rectangle(10, 10, 15, 15);
 
-        switch (Math.floor(Math.abs(this.finalTime / 1000 + 6))) {
-            case 0:
-                this.con.text = "帅气的专注";
-                break;
-            case 1:
-                this.con.text = "很专注，还需继续努力";
-                break;
-            case 2:
-                this.con.text = "别摸糊了，赶紧醒醒";
-                break;
-            default:
-                break;
-        }
+        virtualFactoryImg.scale9Grid = rect;
 
+        virtualFactoryImg.y = 400;
+        virtualFactoryImg.x = 120;
+
+        this.spr.addChild(virtualFactoryImg);
+
+        this.spr.touchEnabled = true;
+        virtualFactoryImg.touchEnabled = true;
+        virtualFactoryImg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onVirtualFactory, this, true);
+    }
+
+    private onVirtualFactory(): void {
+        this.spr.removeChildren();
+        const virtualFactory = new VirtualFactory();
+        this.spr.addChild(virtualFactory);
     }
 
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
      * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
      */
-    private createBitmapByName(name: string) {
+    public static createBitmapByName(name: string) {
         let result = new egret.Bitmap();
         let texture: egret.Texture = RES.getRes(name);
         result.texture = texture;
         return result;
     }
-
 
 }
 
