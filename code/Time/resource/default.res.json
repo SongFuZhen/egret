@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json",
+			"keys": "bg_jpg,egret_icon_png,description_json,basic",
 			"name": "preload"
 		},
 		{
@@ -9,7 +9,7 @@
 			"name": "button"
 		},
 		{
-			"keys": "xngc_png,worker_png,stacker_png,workstation_png",
+			"keys": "xngc_png,worker_png,stacker_png,workstation_png,table_png,way_png,people_gif",
 			"name": "factory"
 		}
 	],
@@ -63,6 +63,26 @@
 			"url": "assets/virtual_factory/stacker.png",
 			"type": "image",
 			"name": "stacker_png"
+		},
+		{
+			"url": "assets/virtual_factory/table.png",
+			"type": "image",
+			"name": "table_png"
+		},
+		{
+			"url": "assets/virtual_factory/way.png",
+			"type": "image",
+			"name": "way_png"
+		},
+		{
+			"url": "assets/virtual_factory/people.gif",
+			"type": "image",
+			"name": "people_gif"
+		},
+		{
+			"url": "assets/basic.fui",
+			"type": "bin",
+			"name": "basic"
 		}
 	]
 }

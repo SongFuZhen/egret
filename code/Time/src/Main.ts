@@ -36,8 +36,8 @@ class Main extends egret.DisplayObjectContainer {
     private spr: egret.Sprite;
 
     private onAddToStage(event: egret.Event) {
-        // this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
-        // this.stage.scaleMode = egret.StageScaleMode.FIXED_NARROW;
+        this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+        this.stage.scaleMode = egret.StageScaleMode.FIXED_NARROW;
 
         this.runGame().catch(e => {
             console.log(e);
@@ -47,16 +47,31 @@ class Main extends egret.DisplayObjectContainer {
 
     private async runGame() {
         await this.loadResource();
+        fairygui.UIPackage.addPackage("basic");
+
+        fairygui.UIConfig.defaultFont = "宋体";
+        fairygui.UIConfig.verticalScrollBar = fairygui.UIPackage.getItemURL("Basic", "ScrollBar_VT");
+        fairygui.UIConfig.horizontalScrollBar = fairygui.UIPackage.getItemURL("Basic", "ScrollBar_HZ");
+        fairygui.UIConfig.popupMenu = fairygui.UIPackage.getItemURL("Basic", "PopupMenu");
+        fairygui.UIConfig.buttonSound = fairygui.UIPackage.getItemURL("Basic", "click");
+
+        this.stage.addChild(fairygui.GRoot.inst.displayObject);
 
         this.spr = new egret.Sprite();
-        this.spr.width = 480;
-        this.spr.height = 800;
+        this.spr.width = this.stage.stageWidth;
+        this.spr.height = this.stage.$stageHeight;
+        this.spr.graphics.beginFill(0x8DDE99);
+        this.spr.graphics.drawRect(0, 0, this.stage.stageWidth, this.stage.$stageHeight);
+        this.spr.graphics.endFill();
+
         this.addChild(this.spr);
 
         this.onTimerShow();
         this.onShowAnim();
 
         this.onVirtualFactoryShow();
+
+        this.onFairyGuiShow();
     }
 
     /**
@@ -149,6 +164,34 @@ class Main extends egret.DisplayObjectContainer {
         const virtualFactory = new VirtualFactory();
         this.spr.addChild(virtualFactory);
     }
+
+
+    /**
+     * Fairy UI
+     */
+    private onFairyGuiShow() {
+        const virtualFactoryImg = Main.createBitmapByName("xngc_png");
+
+        const rect: egret.Rectangle = new egret.Rectangle(10, 10, 15, 15);
+
+        virtualFactoryImg.scale9Grid = rect;
+
+        virtualFactoryImg.y = 500;
+        virtualFactoryImg.x = 120;
+
+        this.spr.addChild(virtualFactoryImg);
+
+        this.spr.touchEnabled = true;
+        virtualFactoryImg.touchEnabled = true;
+        virtualFactoryImg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onFairyGui, this, true);
+    }
+
+    private onFairyGui(): void {
+        this.spr.removeChildren();
+        const fairyGui = new FairyGui();
+        this.spr.addChild(fairyGui);
+    }
+
 
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。

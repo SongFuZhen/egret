@@ -6,7 +6,7 @@ class Anim extends egret.DisplayObjectContainer {
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
 
-    private onAddToStage(event: egret.Event) {
+    private onAddToStage(e: egret.Event) {
         this.showAnim().catch(e => {
             console.log(e);
         })

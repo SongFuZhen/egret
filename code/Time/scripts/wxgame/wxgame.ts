@@ -1,9 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
+
 export class WxgamePlugin implements plugins.Command {
 
     constructor() {
     }
+
     async onFile(file: plugins.File) {
         if (file.extname == '.js') {
             const filename = file.origin;
@@ -33,6 +35,9 @@ export class WxgamePlugin implements plugins.Command {
                     content += ';window.dragonBones = dragonBones';
                 }
                 content = "var egret = window.egret;" + content;
+                if (filename == "libs/fairygui/fairygui.js" || filename == "libs/fairygui/fairygui.min.js") {
+                    content += ";window.fairygui = fairygui;";
+                }
                 if (filename == 'main.js') {
                     content += ";window.Main = Main;"
                 }
@@ -41,10 +46,11 @@ export class WxgamePlugin implements plugins.Command {
         }
         return file;
     }
+
     async onFinish(pluginContext: plugins.CommandContext) {
         //同步 index.html 配置到 game.js
         const gameJSPath = path.join(pluginContext.outputDir, "game.js");
-        let gameJSContent = fs.readFileSync(gameJSPath, { encoding: "utf8" });
+        let gameJSContent = fs.readFileSync(gameJSPath, {encoding: "utf8"});
         const projectConfig = pluginContext.buildConfig.projectConfig;
         const optionStr =
             `entryClassName: ${projectConfig.entryClassName},\n\t\t` +
@@ -71,7 +77,7 @@ export class WxgamePlugin implements plugins.Command {
             orientation = "portrait";
         }
         const gameJSONPath = path.join(pluginContext.outputDir, "game.json");
-        let gameJSONContent = JSON.parse(fs.readFileSync(gameJSONPath, { encoding: "utf8" }));
+        let gameJSONContent = JSON.parse(fs.readFileSync(gameJSONPath, {encoding: "utf8"}));
         gameJSONContent.deviceOrientation = orientation;
         fs.writeFileSync(gameJSONPath, JSON.stringify(gameJSONContent, null, "\t"));
     }
