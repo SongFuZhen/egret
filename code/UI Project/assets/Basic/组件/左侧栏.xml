@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="200,709" bgColorEnabled="true" bgColor="#f2f2f2">
+  <displayList>
+    <graph id="n0_lon2" name="n0" xy="0,0" size="200,709" type="rect" fillColor="#fff2f2f2">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <text id="n5_lon2" name="n5" xy="7,5" size="41,19" fontSize="12" color="#666666" text="请选择"/>
+    <component id="n1_lon2" name="t_avatar" src="lon2o" fileName="组件/BagGridSub.xml" xy="46,37" group="n6_lon2">
+      <Button title="头像" titleColor="#ff0000" icon="ui://y0vgs7pplon2h"/>
+    </component>
+    <component id="n2_lon2" name="t_forklift" src="lon2o" fileName="组件/BagGridSub.xml" xy="46,156" group="n6_lon2">
+      <Button title="叉车" titleColor="#ff0000" icon="ui://y0vgs7pplon2l"/>
+    </component>
+    <component id="n3_lon2" name="t_worker" src="lon2o" fileName="组件/BagGridSub.xml" xy="46,277" group="n6_lon2">
+      <Button title="工人" titleColor="#ff0000" icon="ui://y0vgs7pplon2n"/>
+    </component>
+    <component id="n4_lon2" name="t_workstation" src="lon2o" fileName="组件/BagGridSub.xml" xy="46,399" group="n6_lon2">
+      <Button title="工作台" titleColor="#ff0000" icon="ui://y0vgs7pplon2m"/>
+    </component>
+    <group id="n6_lon2" name="template" xy="46,37" size="100,462" advanced="true"/>
+  </displayList>
+  <relation target="" sidePair="width-width,height-height"/>
+</component>

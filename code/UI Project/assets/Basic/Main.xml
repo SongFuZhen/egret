@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1024,768">
+  <controller name="c1" pages="0,,1," selected="0"/>
+  <displayList>
+    <component id="n48_lon2" name="head" src="lon216" fileName="组件/头部.xml" xy="0,0">
+      <relation target="" sidePair="width-width"/>
+    </component>
+    <component id="n41_lon2" name="left_container" src="lon2w" fileName="组件/左侧栏.xml" xy="0,60">
+      <relation target="" sidePair="height-height"/>
+    </component>
+    <component id="n44_lon2" name="right_container" src="lon2y" fileName="组件/右侧栏.xml" xy="205,60" size="819,709">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+  </displayList>
+</component>

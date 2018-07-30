@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="y0vgs7pp" jpegQuality="80" compressPNG="true">
+  <resources>
+    <image id="lon2e" name="道具框底_png.png" path="/素材/"/>
+    <movieclip id="lon2f" name="加载小宠物_jta.jta" path="/素材/"/>
+    <image id="lon2g" name="道具图标外框_png.png" path="/素材/"/>
+    <image id="lon2h" name="avatar.png" path="/素材/"/>
+    <image id="lon2i" name="按钮样式1_OFF_png.png" path="/素材/" scale="9grid" scale9grid="40,17,80,34"/>
+    <image id="lon2j" name="按钮样式1_ON_png.png" path="/素材/" scale="9grid" scale9grid="40,17,80,34"/>
+    <image id="lon2l" name="vf_叉车_png.png" path="/素材/"/>
+    <image id="lon2m" name="vf_工作台_png.png" path="/素材/"/>
+    <image id="lon2n" name="vf_工人_png.png" path="/素材/"/>
+    <component id="lon2o" name="BagGridSub.xml" path="/组件/"/>
+    <component id="lon2p" name="NormalBtn.xml" path="/组件/"/>
+    <component id="lon2q" name="Main.xml" path="/" exported="true"/>
+    <component id="lon2w" name="左侧栏.xml" path="/组件/"/>
+    <component id="lon2y" name="右侧栏.xml" path="/组件/"/>
+    <component id="lon216" name="头部.xml" path="/组件/"/>
+    <component id="lon218" name="ListBtn.xml" path="/组件/"/>
+  </resources>
+  <publish name="vf"/>
+</packageDescription>

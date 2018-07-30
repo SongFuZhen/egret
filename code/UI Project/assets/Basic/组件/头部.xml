@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1024,60" bgColorEnabled="true" bgColor="#33cccc">
+  <displayList>
+    <graph id="n2_lon2" name="header_bg" xy="0,0" size="1024,60" type="rect" fillColor="#ff33cccc">
+      <relation target="" sidePair="width-width"/>
+    </graph>
+    <text id="n0_lon2" name="vf_left_title" xy="8,13" size="259,35" font="STSong" fontSize="28" color="#ffffff" text="虚拟工厂可视化MVP"/>
+    <text id="n1_lon2" name="iftech" xy="897,11" size="113,39" fontSize="30" text="IFTECH">
+      <relation target="" sidePair="right-right"/>
+    </text>
+  </displayList>
+  <relation target="" sidePair="width-width"/>
+</component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="100,100" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_lon2" name="n0" src="lon2e" fileName="素材/道具框底_png.png" xy="5,4">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n2_lon2" name="icon" xy="6,6" size="88,88"/>
+    <text id="n1_lon2" name="title" xy="9,66" size="84,30" fontSize="22" color="#ff0000" align="right" vAlign="middle" autoSize="none" singleLine="true" text=""/>
+    <image id="n3_lon2" name="n3" src="lon2g" fileName="素材/道具图标外框_png.png" xy="0,0"/>
+  </displayList>
+  <Button/>
+</component>

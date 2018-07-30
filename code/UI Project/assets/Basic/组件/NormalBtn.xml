@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="163,63" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n4_lon2" name="n4" src="lon2i" fileName="素材/按钮样式1_OFF_png.png" xy="-5,-2"/>
+    <image id="n5_lon2" name="n5" src="lon2j" fileName="素材/按钮样式1_ON_png.png" xy="-3,-1" size="169,72"/>
+    <loader id="n6_lon2" name="icon" xy="0,4" size="163,61"/>
+    <text id="n3_lon2" name="title" xy="0,0" size="163,63" fontSize="12" align="center" vAlign="middle" autoSize="none" singleLine="true" text="">
+      <relation target="" sidePair="width-width,height-height"/>
+    </text>
+  </displayList>
+  <Button/>
+</component>
