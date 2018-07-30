@@ -33,8 +33,6 @@ class Main extends egret.DisplayObjectContainer {
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
 
-    private spr: egret.Sprite;
-
     private onAddToStage(event: egret.Event) {
         this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
         this.stage.scaleMode = egret.StageScaleMode.FIXED_NARROW;
@@ -47,81 +45,10 @@ class Main extends egret.DisplayObjectContainer {
 
     private async runGame() {
         await this.loadResource();
-        fairygui.UIPackage.addPackage("basic");
 
-        fairygui.UIConfig.defaultFont = "宋体";
-        fairygui.UIConfig.verticalScrollBar = fairygui.UIPackage.getItemURL("Basic", "ScrollBar_VT");
-        fairygui.UIConfig.horizontalScrollBar = fairygui.UIPackage.getItemURL("Basic", "ScrollBar_HZ");
-        fairygui.UIConfig.popupMenu = fairygui.UIPackage.getItemURL("Basic", "PopupMenu");
-        fairygui.UIConfig.buttonSound = fairygui.UIPackage.getItemURL("Basic", "click");
+        this.onVF();
 
-        this.stage.addChild(fairygui.GRoot.inst.displayObject);
-
-        this.spr = new egret.Sprite();
-        this.spr.width = this.stage.stageWidth;
-        this.spr.height = this.stage.$stageHeight;
-        this.spr.graphics.beginFill(0x8DDE99);
-        this.spr.graphics.drawRect(0, 0, this.stage.stageWidth, this.stage.$stageHeight);
-        this.spr.graphics.endFill();
-
-        this.addChild(this.spr);
-
-        this.onTimerShow();
-        this.onShowAnim();
-
-        this.onVirtualFactoryShow();
-
-        this.onFairyGuiShow();
-    }
-
-    /**
-     * Timer Game Show
-     */
-    private onTimerShow(): void {
-        const timerImg = Main.createBitmapByName("zzd_png");
-        const rect: egret.Rectangle = new egret.Rectangle(10, 10, 15, 15);
-
-        timerImg.scale9Grid = rect;
-        timerImg.y = 200;
-        timerImg.x = 120;
-        this.spr.addChild(timerImg);
-
-        this.spr.touchEnabled = true;
-        timerImg.touchEnabled = true;
-        timerImg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTimerTouch, this, true);
-    }
-
-    private onTimerTouch() {
-        this.spr.removeChildren();
-        const timerUI = new Timer();
-        this.spr.addChild(timerUI);
-    }
-
-    /**
-     * Anim Show
-     */
-    private onShowAnim(): void {
-        const animImg = Main.createBitmapByName("btn");
-
-        const rect: egret.Rectangle = new egret.Rectangle(10, 10, 15, 15);
-
-        animImg.scale9Grid = rect;
-
-        animImg.y = 300;
-        animImg.x = 120;
-
-        this.spr.addChild(animImg);
-
-        this.spr.touchEnabled = true;
-        animImg.touchEnabled = true;
-        animImg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAnimTouch, this, true);
-
-    }
-
-    private onAnimTouch() {
-        this.spr.removeChildren();
-        const animUI = new Anim();
-        this.spr.addChild(animUI);
+        // this.onFairyGui();
     }
 
     private async loadResource() {
@@ -139,59 +66,27 @@ class Main extends egret.DisplayObjectContainer {
         }
     }
 
-    /**
-     * 虚拟工厂展示图
-     */
-    private onVirtualFactoryShow() {
-        const virtualFactoryImg = Main.createBitmapByName("xngc_png");
 
-        const rect: egret.Rectangle = new egret.Rectangle(10, 10, 15, 15);
+    private vf: VF;
 
-        virtualFactoryImg.scale9Grid = rect;
-
-        virtualFactoryImg.y = 400;
-        virtualFactoryImg.x = 120;
-
-        this.spr.addChild(virtualFactoryImg);
-
-        this.spr.touchEnabled = true;
-        virtualFactoryImg.touchEnabled = true;
-        virtualFactoryImg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onVirtualFactory, this, true);
+    private onVF() {
+        fairygui.UIPackage.addPackage("vf");
+        fairygui.UIConfig.defaultFont = "SimSun";
+        this.stage.addChild(fairygui.GRoot.inst.displayObject);
+        this.vf = new VF();
     }
 
-    private onVirtualFactory(): void {
-        this.spr.removeChildren();
-        const virtualFactory = new VirtualFactory();
-        this.spr.addChild(virtualFactory);
+    private fairyGui: FairyGui;
+
+    private onFairyGui() {
+        fairygui.UIPackage.addPackage("basic");
+
+        fairygui.UIConfig.defaultFont = "SimSun";
+
+        this.stage.addChild(fairygui.GRoot.inst.displayObject);
+
+        this.fairyGui = new FairyGui();
     }
-
-
-    /**
-     * Fairy UI
-     */
-    private onFairyGuiShow() {
-        const virtualFactoryImg = Main.createBitmapByName("xngc_png");
-
-        const rect: egret.Rectangle = new egret.Rectangle(10, 10, 15, 15);
-
-        virtualFactoryImg.scale9Grid = rect;
-
-        virtualFactoryImg.y = 500;
-        virtualFactoryImg.x = 120;
-
-        this.spr.addChild(virtualFactoryImg);
-
-        this.spr.touchEnabled = true;
-        virtualFactoryImg.touchEnabled = true;
-        virtualFactoryImg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onFairyGui, this, true);
-    }
-
-    private onFairyGui(): void {
-        this.spr.removeChildren();
-        const fairyGui = new FairyGui();
-        this.spr.addChild(fairyGui);
-    }
-
 
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。

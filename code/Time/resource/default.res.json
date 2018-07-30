@@ -1,11 +1,11 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json,basic",
+			"keys": "bg_jpg,egret_icon_png,description_json,basic,basic@atlas0_png,vf@atlas0_png,vf",
 			"name": "preload"
 		},
 		{
-			"keys": "btn,play_png,zzd_png",
+			"keys": "btn,play_png,zzd_png,virtual_factory_png",
 			"name": "button"
 		},
 		{
@@ -83,6 +83,26 @@
 			"url": "assets/basic.fui",
 			"type": "bin",
 			"name": "basic"
+		},
+		{
+			"url": "assets/virtual_factory.png",
+			"type": "image",
+			"name": "virtual_factory_png"
+		},
+		{
+			"url": "assets/basic@atlas0.png",
+			"type": "image",
+			"name": "basic@atlas0_png"
+		},
+		{
+			"url": "assets/vf@atlas0.png",
+			"type": "image",
+			"name": "vf@atlas0_png"
+		},
+		{
+			"url": "assets/vf.fui",
+			"type": "bin",
+			"name": "vf"
 		}
 	]
 }

@@ -13,9 +13,11 @@
 		"bin-debug/Animation.js",
 		"bin-debug/FairyGui.js",
 		"bin-debug/LoadingUI.js",
+		"bin-debug/Main_copy.js",
 		"bin-debug/Main.js",
 		"bin-debug/Platform.js",
 		"bin-debug/Timer.js",
+		"bin-debug/VF.js",
 		"bin-debug/VirtualFactory.js"
 	]
 }
