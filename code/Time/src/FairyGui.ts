@@ -13,12 +13,6 @@ class FairyGui extends egret.DisplayObjectContainer {
     }
 
     private async showFairyGui() {
-        
-
-
-
-
-
 
 
 
