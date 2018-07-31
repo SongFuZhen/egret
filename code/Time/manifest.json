@@ -18,6 +18,7 @@
 		"bin-debug/Platform.js",
 		"bin-debug/Timer.js",
 		"bin-debug/VF.js",
-		"bin-debug/VirtualFactory.js"
+		"bin-debug/VirtualFactory.js",
+		"bin-debug/WindowsA.js"
 	]
 }

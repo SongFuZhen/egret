@@ -29,28 +29,6 @@ class VF {
         // right_container
         this._rightContainer = this._view.getChild("right_container").asCom;
         this._rightContainer.addEventListener(fairygui.DropEvent.DROP, this.__onDrop, this);
-
-
-        // 所有的btn都可以进行拖动
-
-        // for (let i: number = 0; i < this._rightContainer.numChildren; i++) {
-        //     // const testBtn: fairygui.GButton = this._view.getChild("test").asButton;
-        //     const testBtn: fairygui.GButton = this._rightContainer.getChildAt(i).asButton;
-        //
-        //     console.log(testBtn);
-        //     if (testBtn == null) return;
-        //
-        //     testBtn.draggable = true;
-        //
-        //     const bounds: fairygui.GObject = this._rightContainer;
-        //     const rect: egret.Rectangle = new egret.Rectangle();
-        //     bounds.localToGlobalRect(0, 0, bounds.width, bounds.height, rect);
-        //     fairygui.GRoot.inst.globalToLocalRect(rect.x, rect.y, rect.width, rect.height, rect);
-        //     rect.x -= this._view.parent.x;
-        //
-        //     testBtn.dragBounds = rect;
-        //     testBtn.addEventListener(fairygui.DragEvent.DRAG_END, this.__onDragEnd, this);
-        // }
     }
 
     /**
@@ -72,122 +50,77 @@ class VF {
         //取消对原目标的拖动，换成一个替代品
         evt.preventDefault();
 
-        console.log(evt);
-
         const btn: fairygui.GButton = <fairygui.GButton><any>evt.currentTarget;
-        fairygui.DragDropManager.inst.startDrag(btn, btn.icon, btn);
+        fairygui.DragDropManager.inst.startDrag(btn, btn.icon, btn.icon);
     }
 
-
     private __onDrop(evt: fairygui.DropEvent): void {
+        // 弹框，添加属性
+
         const cnt: number = this._rightContainer.numChildren;
-        let hasExist: boolean = false;
+
+        const btn: fairygui.GButton = fairygui.UIPackage.createObject("Basic", "BagGridSub").asButton;
+        btn.icon = evt.source;
+        // btn.title = "haha";
+        btn.x = evt.target.x;
+        btn.y = evt.target.y;
+        btn.draggable = true;
+        btn.sortingOrder = cnt + 1;
+        // btn.addEventListener(fairygui.GButton.OVER, this.__onBtnRollOver, this);
+
+        // 使用区域控制
+        const obj = this._rightContainer;
+        const bounds: fairygui.GObject = this._rightContainer;
+        const rect: egret.Rectangle = new egret.Rectangle();
+        bounds.localToGlobalRect(0, 0, bounds.width, bounds.height, rect);
+        fairygui.GRoot.inst.globalToLocalRect(rect.x, rect.y, rect.width, rect.height, rect);
+
+        console.log(btn);
+
+        //因为这时候面板还在从右往左动，所以rect不准确，需要用相对位置算出最终停下来的范围
+        rect.x -= obj.parent.x;
+        btn.dragBounds = rect;
 
         for (let i: number = 0; i < cnt; i++) {
             if (evt.source.id == this._rightContainer.getChildAt(i).id) {
-                hasExist = true;
-                // return;
-                break;
+                return;
             }
         }
 
-        console.log(hasExist);
+        // 如果在里面移动，就不需要添加了
+        this._rightContainer.addChild(btn);
 
-        if (!hasExist) {
-            console.log("evt.............");
-            console.log(evt);
+        btn.addClickListener(this.__onClick, this);
 
-            // const btn: fairygui.GButton = <fairygui.GButton><any>evt.currentTarget;
-            // btn.icon = evt.source;
-            // btn.title = "哈哈";
+        // btn.addEventListener(fairygui.GButton.OVER, this.__onBtnRollOver, this);
+    }
 
-            // console.log(evt);
-            // console.log(evt.source);
+    private _win: fairygui.Window;
 
-            // const btn: fairygui.GButton = <fairygui.GButton><any>evt.source;
-            // btn.icon = evt.source;
-            // btn.title = "哈哈";
-            // this._rightContainer.addChild(btn);
+    private __onClick(): void {
+        console.log("点击事件....");
 
-            // btn.icon = evt.source;
-            // btn.title = "哈哈";
-            console.log(evt.source);
-
-            // console.log(evt);
-
-            const btn: fairygui.GButton = <fairygui.GButton><any>evt.source;
-
-            // console.log(evt.source);
-            //
-            // const btn: fairygui.GButton = new fairygui.GButton();
-            btn.icon = evt.source.icon;
-            btn.x = 100;
-            btn.y = 200;
-            btn.height = evt.source.height;
-            btn.width = evt.source.width;
-            btn.visible = true;
-            btn.name = "test";
-            btn.title = "test";
-            btn.opaque = true;
-            btn.packageItem = evt.source.packageItem;
-            btn.sourceWidth = evt.source.sourceWidth;
-            btn.sourceHeight = evt.source.sourceHeight;
-            btn.draggable = true;
-            btn.sortingOrder = this._rightContainer.numChildren + 1;
-            //
-
-            const bounds: fairygui.GObject = this._rightContainer;
-            const rect: egret.Rectangle = new egret.Rectangle();
-            bounds.localToGlobalRect(0, 0, bounds.width, bounds.height, rect);
-            fairygui.GRoot.inst.globalToLocalRect(rect.x, rect.y, rect.width, rect.height, rect);
-            rect.x -= this._view.parent.x;
-
-            btn.dragBounds = rect;
-            btn.addEventListener(fairygui.DragEvent.DRAG_END, this.__onDragEnd, this);
-
-            console.log("...........................");
-            console.log(btn);
-
-            this._rightContainer.addChild(btn);
-
-            // const newBtn: fairygui.GButton = new fairygui.GButton();
-            // newBtn.text = "hello";
-            // newBtn.x = evt.target.x;
-            // newBtn.y = evt.target.y;
-            // newBtn.titleFontSize = 100;
-            // newBtn.icon = evt.source;
-            // newBtn.height = 100;
-            // newBtn.width = 100;
-            // newBtn.name = "hello";
-            // newBtn.sourceHeight = 100;
-            // newBtn.sourceWidth = 100;
-            // newBtn.sortingOrder = parseInt(200 + newBtn.id);
-            // newBtn.visible = true;
-
-            // console.log(newBtn);
-            // this._rightContainer.addChild(newBtn);
-
-            // console.log(this._rightContainer.numChildren);
-            // for (let i: number = 0; i < this._rightContainer.numChildren; i++) {
-            //     console.log(this._rightContainer.getChildAt(i));
-            // }
-
-            // this._rightContainer.alpha = 0.2;
-        } else {
-
+        if (this._win == null) {
+            this._win = new WindowsA();
+            this._win.show();
         }
     }
 
-    private __onDragEnd(evt: fairygui.DragEvent): void {
-        console.log(">...............");
-
-        this.t.color = 0xDC143C;
-        this.t.setSize(100, 100);
-        this.t.setXY(0, 0);
-        this.t.text = "stageX: " + evt.stageX + ", stageY:" + evt.stageY;
-
-        console.log(this.t);
-        this._rightContainer.removeChild(this.t);
-        this._rightContainer.addChild(this.t);
+    private __onBtnRollOver(): void {
+        console.log("btn, 放上去了...............");
     }
+
+
+    // private __onDragEnd(evt: fairygui.DragEvent): void {
+    //     console.log(">...............");
+    //
+    //     this.t.color = 0xDC143C;
+    //     this.t.setSize(100, 100);
+    //     this.t.setXY(0, 0);
+    //     this.t.text = "stageX: " + evt.stageX + ", stageY:" + evt.stageY;
+    //
+    //     console.log(this.t);
+    //     this._rightContainer.removeChild(this.t);
+    //     this._rightContainer.addChild(this.t);
+    // }
 }
